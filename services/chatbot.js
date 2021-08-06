@@ -2,7 +2,7 @@ const messengerAPI = require('./../api/messenger');
 const dialogflowAPI = require('./../api/dialogflow');
 
 module.exports = {
-    handleMessage: async (sender_psid, received_message) => {
+    handleMessage: (sender_psid, received_message) => {
         // Check if the message contains text
         if (received_message.text) {
             // Create the payload for a basic text message
@@ -11,11 +11,7 @@ module.exports = {
             };
         }
 
-        let test = await dialogflowAPI.fullfilMessage(
-            sender_psid,
-            received_message.text
-        ).received_message;
-        console.log(test);
+        dialogflowAPI.fullfilMessage(sender_psid, received_message.text);
 
         // Sends the response message
         messengerAPI.callSendAPI(sender_psid, response);
