@@ -15,8 +15,12 @@ module.exports = {
             sender_psid,
             received_message.text
         );
+        const message = {
+            text: response,
+        };
+        console.log(response);
 
         // Sends the response message
-        messengerAPI.callSendAPI(sender_psid, response);
+        messengerAPI.callSendAPI(sender_psid, message);
     },
 };
