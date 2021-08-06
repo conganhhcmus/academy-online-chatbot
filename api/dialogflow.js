@@ -17,7 +17,7 @@ const sessionClient = new dialogflow.SessionsClient(config);
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 module.exports = {
-    fullfilMessage: (sender_psid, received_message) => {
+    fullfilMessage: async (sender_psid, received_message) => {
         const request = {
             session: sessionPath,
             queryInput: {
@@ -28,7 +28,7 @@ module.exports = {
             },
         };
 
-        sessionClient
+        await sessionClient
             .detectIntent(request)
             .then((responses) => {
                 const result = responses[0].queryResult;
