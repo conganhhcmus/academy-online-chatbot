@@ -11,7 +11,7 @@ module.exports = {
         //     };
         // }
 
-        let response = dialogflowAPI.fullfilMessage(
+        let response = await dialogflowAPI.fullfilMessage(
             sender_psid,
             received_message.text
         );
