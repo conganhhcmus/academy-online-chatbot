@@ -12,11 +12,11 @@ module.exports = {
                 // Get the webhook event. entry.messaging is an array, but
                 // will only ever contain one event, so we get index 0
                 // Gets the body of the webhook event
-                let webhook_event = entry.messaging[0];
+                const webhook_event = entry.messaging[0];
                 console.log(webhook_event);
 
                 // Get the sender PSID
-                let sender_psid = webhook_event.sender.id;
+                const sender_psid = webhook_event.sender.id;
                 console.log('Sender PSID: ' + sender_psid);
 
                 chatbotService.handleMessage(
