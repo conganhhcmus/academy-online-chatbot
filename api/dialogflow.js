@@ -17,12 +17,12 @@ const sessionClient = new dialogflow.SessionsClient(config);
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 module.exports = {
-    fullfilMessage: (sender_psid, received_message) => {
+    fullfilMessage: (userId, message) => {
         const request = {
             session: sessionPath,
             queryInput: {
                 text: {
-                    text: received_message,
+                    text: message,
                     languageCode: languageCode,
                 },
             },
@@ -32,10 +32,7 @@ module.exports = {
             .detectIntent(request)
             .then((responses) => {
                 const result = responses[0].queryResult;
-                console.log({
-                    sender_psid: sender_psid,
-                    received_message: result.fulfillmentText,
-                });
+                console.log(userId, result.fulfillmentText);
             })
             .catch((err) => {
                 console.error('ERROR:', err);

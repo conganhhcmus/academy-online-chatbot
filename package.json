@@ -10,6 +10,7 @@
     "scripts": {
         "start": "node app.js",
         "format": "npx prettier --write .",
+        "check": "npx prettier --check .",
         "test": "echo 'test'"
     }
 }
