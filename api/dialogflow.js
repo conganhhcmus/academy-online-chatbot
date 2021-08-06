@@ -13,7 +13,7 @@ const config = {
     },
 };
 
-const sessionClient = new dialogflow.SessionsClient(config);
+const sessionClient = new dialogflow.SessionsClient();
 
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
