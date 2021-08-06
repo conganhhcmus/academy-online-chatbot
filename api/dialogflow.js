@@ -42,5 +42,6 @@ module.exports = {
         } else {
             console.log(`  No intent matched.`);
         }
+        return result.fulfillmentText;
     },
 };
