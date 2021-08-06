@@ -1,3 +1,12 @@
+# config variable
+.env
+
+# vscode
+.vscode
+
+# system
+.DS_Store
+
 # Logs
 logs
 *.log
