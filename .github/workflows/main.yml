@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  check convention:
+  check_convention:
     runs-on: ubuntu-latest
     
     strategy:
