@@ -1,11 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-require('dotenv').config({ path: __dirname + '/.env' });
-
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// config
+require('./config')(app);
+// settings
+require('./settings')(app);
 
 app.get('/', (req, res) => {
     res.send('Hello Word!');

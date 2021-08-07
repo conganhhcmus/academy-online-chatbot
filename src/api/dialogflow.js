@@ -1,5 +1,4 @@
-// You can find your project ID in your Dialogflow agent settings
-const projectId = 'newagent-mivp'; //https://dialogflow.com/docs/agents#settings
+const projectId = 'newagent-mivp';
 const uuid = require('uuid');
 const sessionId = uuid.v4();
 const languageCode = 'en-US';
@@ -12,8 +11,6 @@ const config = {
         client_email: process.env.DIALOGFLOW_CLIENT_EMAIL,
     },
 };
-
-console.log(config.credentials);
 
 const sessionClient = new dialogflow.SessionsClient(config);
 
