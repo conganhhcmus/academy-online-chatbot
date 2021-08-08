@@ -1,5 +1,6 @@
 const messengerAPI = require('./../api/messenger');
 const dialogflowAPI = require('./../api/dialogflow');
+const { PAYLOAD } = require('../settings');
 
 module.exports = {
     handleMessage: async (sender_psid, received_message) => {
@@ -59,6 +60,17 @@ module.exports = {
             response = { text: 'Thanks!' };
         } else if (payload === 'no') {
             response = { text: 'Oops, try sending another image.' };
+        }
+        switch (payload) {
+            case PAYLOAD.GET_STARTED:
+                response = { text: 'Welcome to Academy Online Learning!' };
+                break;
+            case 'yes':
+                response = { text: 'Thanks!' };
+                break;
+            case 'no':
+                response = { text: 'Oops, try sending another image.' };
+                break;
         }
         // Send the message to acknowledge the postback
         callSendAPI(sender_psid, response);
