@@ -113,7 +113,7 @@ module.exports = {
                             webview_height_ratio: 'full',
                         },
                         {
-                            type: TYPE.POSTBACK,
+                            type: TYPE.URL,
                             title: '🔥 REGISTER!',
                             url: URL.REGISTER,
                             webview_height_ratio: 'full',
@@ -121,7 +121,7 @@ module.exports = {
                         {
                             type: TYPE.POSTBACK,
                             title: 'RESTARTED!',
-                            payload: POSTBACK.GET_STARTED,
+                            payload: PAYLOAD.GET_STARTED,
                         },
                     ],
                 },
