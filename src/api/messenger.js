@@ -104,7 +104,7 @@ module.exports = {
             persistent_menu: [
                 {
                     locale: 'default',
-                    composer_input_disabled: false,
+                    composer_input_disabled: true,
                     call_to_actions: [
                         {
                             type: TYPE.WEB_URL,
@@ -113,7 +113,7 @@ module.exports = {
                             webview_height_ratio: 'full',
                         },
                         {
-                            type: TYPE.URL,
+                            type: TYPE.WEB_URL,
                             title: '🔥 REGISTER!',
                             url: URL.REGISTER,
                             webview_height_ratio: 'full',
@@ -164,10 +164,10 @@ module.exports = {
             },
             (err, res, body) => {
                 if (!err) {
-                    console.log('setup persistent menu success!');
+                    console.log('remove persistent menu success!');
                     console.log(body);
                 } else {
-                    console.error('Unable to setup persistent menu:' + err);
+                    console.error('Unable to remove persistent menu:' + err);
                 }
             }
         );
