@@ -36,13 +36,7 @@ let GetStarted = async (sender_psid) => {
                                 type: TYPE.POSTBACK,
                                 title: '🎁 PROMOTIONS',
                                 payload: PAYLOAD.PROMOTIONS,
-                            },
-                            {
-                                type: TYPE.WEB_URL,
-                                title: '🔥 REGISTER!',
-                                url: URL.REGISTER,
-                                webview_height_ratio: 'full',
-                            },
+                            }
                         ],
                     },
                 ],
