@@ -20,24 +20,24 @@ module.exports = {
         );
     },
 
-    GetAllCategory: async () => {
-        let response = {};
-        await request(
-            {
-                uri: URL.API_ACADEMY + '/categories/tree',
-                method: 'GET',
-            },
-            (err, res, body) => {
-                if (!err) {
-                    console.log('Success!');
-                    // console.log(body);
-                    response = JSON.parse(body).categories;
-                } else {
-                    console.error('Oops! Error:' + err);
+    GetAllCategory: () => {
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    uri: URL.API_ACADEMY + '/categories/tree',
+                    method: 'GET',
+                },
+                (err, res, body) => {
+                    if (!err) {
+                        console.log('Success!');
+                        resolve(JSON.parse(body).categories);
+                    } else {
+                        console.error('Oops! Error:' + err);
+                        reject();
+                    }
                 }
-            }
-        );
-        return response;
+            );
+        });
     },
 
     GetAllPromotion: () => {
