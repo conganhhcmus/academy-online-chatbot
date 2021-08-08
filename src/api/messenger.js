@@ -1,5 +1,5 @@
 const request = require('request');
-const { PAYLOAD, TYPE } = require('../settings');
+const { PAYLOAD, TYPE, URL } = require('../settings');
 
 module.exports = {
     callSendAPI: async (sender_psid, response) => {
@@ -105,7 +105,7 @@ module.exports = {
             persistent_menu: [
                 {
                     locale: 'default',
-                    composer_input_disabled: true,
+                    composer_input_disabled: false,
                     call_to_actions: [
                         {
                             type: TYPE.WEB_URL,

@@ -27,7 +27,7 @@ let GetStarted = async (sender_psid) => {
                                 webview_height_ratio: 'full',
                             },
                             {
-                                type: TYPE.POSTBACK,
+                                type: TYPE.WEB_URL,
                                 title: '🔥 REGISTER!',
                                 url: URL.REGISTER,
                                 webview_height_ratio: 'full',
