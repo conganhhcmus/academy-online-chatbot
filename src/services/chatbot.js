@@ -1,14 +1,45 @@
 const messengerAPI = require('./../api/messenger');
 const dialogflowAPI = require('./../api/dialogflow');
-const { PAYLOAD } = require('../settings');
+const { PAYLOAD, BUTTON_TYPE, URL } = require('../settings');
 
 let GetStarted = async (sender_psid) => {
     let userProfile = await messengerAPI.getProfileById(sender_psid);
     let response = {
         text: `Welcome ${userProfile.name} to Academy Online Learning!`,
     };
+
+    let academyTemplate = {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'generic',
+                elements: [
+                    {
+                        title: 'Academy Online Learning!',
+                        subtitle:
+                            'My Academy helps more people to learn IT with many courses.',
+                        image_url: URL.HOMEPAGE_IMG,
+                        buttons: [
+                            {
+                                type: BUTTON_TYPE.POSTBACK,
+                                title: '🏠 HOMEPAGE',
+                                payload: PAYLOAD.HOMEPAGE,
+                            },
+                            {
+                                type: BUTTON_TYPE.POSTBACK,
+                                title: 'REGISTER!',
+                                payload: PAYLOAD.REGISTER,
+                            },
+                        ],
+                    },
+                ],
+            },
+        },
+    };
+
     // Send the message to acknowledge the postback
-    messengerAPI.callSendAPI(sender_psid, response);
+    await messengerAPI.callSendAPI(sender_psid, response);
+    await messengerAPI.callSendAPI(sender_psid, academyTemplate);
 };
 
 module.exports = {

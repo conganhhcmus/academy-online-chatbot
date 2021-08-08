@@ -2,7 +2,7 @@ const request = require('request');
 const { PAYLOAD } = require('../settings');
 
 module.exports = {
-    callSendAPI: (sender_psid, response) => {
+    callSendAPI: async (sender_psid, response) => {
         // Construct the message body
         let request_body = {
             recipient: {
@@ -12,7 +12,7 @@ module.exports = {
         };
 
         // Send the HTTP request to the Messenger Platform
-        request(
+        await request(
             {
                 uri: 'https://graph.facebook.com/v2.6/me/messages',
                 qs: { access_token: process.env.PAGE_ACCESS_TOKEN },

@@ -38,6 +38,7 @@ module.exports = {
             console.log(`  Intent: ${result.intent.displayName}`);
         } else {
             console.log(`  No intent matched.`);
+            return "Oops! I don't understand";
         }
         return result.fulfillmentText;
     },

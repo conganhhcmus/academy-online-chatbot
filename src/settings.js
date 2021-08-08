@@ -1,5 +1,7 @@
 const PAYLOAD = {
     GET_STARTED: 'GET_STARTED',
+    REGISTER: 'REGISTER',
+    HOMEPAGE: 'HOMEPAGE',
 };
 
 const BUTTON_TYPE = {
@@ -7,4 +9,8 @@ const BUTTON_TYPE = {
     POSTBACK: 'postback',
 };
 
-module.exports = { PAYLOAD, BUTTON_TYPE };
+const URL = {
+    HOMEPAGE_IMG: 'https://bit.ly/3fK8MQx',
+};
+
+module.exports = { PAYLOAD, BUTTON_TYPE, URL };
