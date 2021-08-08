@@ -68,6 +68,6 @@ module.exports = {
                 break;
         }
         // Send the message to acknowledge the postback
-        callSendAPI(sender_psid, response);
+        MessengerApi.callSendAPI(sender_psid, response);
     },
 };
