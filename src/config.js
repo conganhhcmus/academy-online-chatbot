@@ -1,7 +1,11 @@
-const bodyParser = require('body-parser');
-require('dotenv').config({ path: __dirname + '/../.env' });
+var config = {};
 
-module.exports = (app) => {
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+config.DEV = {
+    PORT: 3000,
 };
+
+config.PROD = {
+    PORT: process.env.PORT,
+};
+
+module.exports = config[process.env.NODE_ENV];

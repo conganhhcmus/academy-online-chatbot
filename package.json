@@ -8,7 +8,8 @@
         "request": "^2.88.2"
     },
     "scripts": {
-        "start": "node ./src/app.js",
+        "start": "NODE_ENV=PROD node ./src/app.js",
+        "dev": "NODE_ENV=DEV node ./src/app.js",
         "format": "npx prettier --write ./src/",
         "check": "npx eslint ./src/ && npx prettier --check ./src/ ",
         "build": "npx babel src -d dist",

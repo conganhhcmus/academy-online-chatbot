@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
+require('dotenv').config({ path: __dirname + '/../.env' });
+const bodyParser = require('body-parser');
+const config = require('./config');
 
-// config
-require('./config')(app);
-// settings
-require('./settings')(app);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.send('Hello Word!');
@@ -12,6 +13,6 @@ app.get('/', (req, res) => {
 
 app.use('/webhook', require('./routes/webhook'));
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
+app.listen(config.PORT, () => {
+    console.log(`Server is running on port ${config.PORT}`);
 });
