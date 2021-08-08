@@ -47,6 +47,7 @@ module.exports = {
         // Sends the response message
         messengerAPI.callSendAPI(sender_psid, response);
     },
+
     handlePostback: (sender_psid, received_postback) => {
         let response;
 

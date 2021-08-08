@@ -18,11 +18,17 @@ module.exports = {
                 // Get the sender PSID
                 const sender_psid = webhook_event.sender.id;
                 console.log('Sender PSID: ' + sender_psid);
-
-                chatbotService.handleMessage(
-                    sender_psid,
-                    webhook_event.message
-                );
+                if (webhook_event.message) {
+                    chatbotService.handleMessage(
+                        sender_psid,
+                        webhook_event.message
+                    );
+                } else if (webhook_event.postback) {
+                    chatbotService.handlePostback(
+                        sender_psid,
+                        webhook_event.postback
+                    );
+                }
             });
 
             // Return a '200 OK' response to all events
