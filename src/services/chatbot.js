@@ -19,8 +19,12 @@ module.exports = {
         if (received_message.text) {
             // Create the payload for a basic text message, which
             // will be added to the body of our request to the Send API
+            let fullfilMessage = await dialogflowAPI.fullfilMessage(
+                received_message.text
+            );
+
             response = {
-                text: dialogflowAPI.fullfilMessage(received_message.text),
+                text: fullfilMessage,
             };
         } else if (received_message.attachments) {
             // Get the URL of the message attachment
