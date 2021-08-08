@@ -1,4 +1,5 @@
 const request = require('request');
+const { URL } = require('../settings');
 
 module.exports = {
     GetAllCourse: (categoryId) => {
