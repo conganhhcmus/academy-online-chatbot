@@ -129,7 +129,7 @@ module.exports = {
                         },
                         {
                             type: TYPE.POSTBACK,
-                            title: 'GET STARTED!',
+                            title: '👋 GET STARTED',
                             payload: PAYLOAD.GET_STARTED,
                         },
                     ],
