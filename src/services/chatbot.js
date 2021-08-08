@@ -36,7 +36,7 @@ let GetStarted = async (sender_psid) => {
                                 type: TYPE.POSTBACK,
                                 title: '🎁 PROMOTIONS',
                                 payload: PAYLOAD.PROMOTIONS,
-                            }
+                            },
                         ],
                     },
                 ],
