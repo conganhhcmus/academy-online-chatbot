@@ -31,7 +31,7 @@ module.exports = {
                 if (!err) {
                     console.log('Success!');
                     // console.log(body);
-                    response = body.categories;
+                    response = JSON.parse(body).categories;
                 } else {
                     console.error('Oops! Error:' + err);
                 }
