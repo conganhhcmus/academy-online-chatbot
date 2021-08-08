@@ -51,7 +51,7 @@ let GetStarted = async (sender_psid) => {
 
 let ShowCourses = (sender_psid) => {};
 let ShowCategories = async (sender_psid) => {
-    let data = await academyAPI.GetAllCategory();
+    let data = JSON.parse(await academyAPI.GetAllCategory());
     let elements = [];
     data.forEach((element) => {
         let subtitle = element.name.toUpperCase();
