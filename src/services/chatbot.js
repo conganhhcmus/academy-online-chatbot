@@ -1,11 +1,11 @@
 const messengerAPI = require('./../api/messenger');
 const dialogflowAPI = require('./../api/dialogflow');
-const { PAYLOAD, BUTTON_TYPE, URL } = require('../settings');
+const { PAYLOAD, TYPE, URL } = require('../settings');
 
 let GetStarted = async (sender_psid) => {
     let userProfile = await messengerAPI.getProfileById(sender_psid);
     let response = {
-        text: `Welcome ${userProfile.name} to Academy Online Learning!`,
+        text: `Welcome ${userProfile.name} to Academy Online!`,
     };
 
     let academyTemplate = {
@@ -15,20 +15,22 @@ let GetStarted = async (sender_psid) => {
                 template_type: 'generic',
                 elements: [
                     {
-                        title: 'Academy Online Learning!',
+                        title: 'Academy Online!',
                         subtitle:
                             'My Academy helps more people to learn IT with many courses.',
                         image_url: URL.HOMEPAGE_IMG,
                         buttons: [
                             {
-                                type: BUTTON_TYPE.POSTBACK,
+                                type: TYPE.WEB_URL,
                                 title: '🏠 HOMEPAGE',
-                                payload: PAYLOAD.HOMEPAGE,
+                                url: URL.HOMEPAGE,
+                                webview_height_ratio: 'full',
                             },
                             {
-                                type: BUTTON_TYPE.POSTBACK,
-                                title: 'REGISTER!',
-                                payload: PAYLOAD.REGISTER,
+                                type: TYPE.POSTBACK,
+                                title: '🔥 REGISTER!',
+                                url: URL.REGISTER,
+                                webview_height_ratio: 'full',
                             },
                         ],
                     },

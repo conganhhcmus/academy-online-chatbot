@@ -1,5 +1,5 @@
 const request = require('request');
-const { PAYLOAD } = require('../settings');
+const { PAYLOAD, TYPE } = require('../settings');
 
 module.exports = {
     callSendAPI: async (sender_psid, response) => {
@@ -95,6 +95,51 @@ module.exports = {
                     console.log('setup profile success!');
                 } else {
                     console.error('Unable to setup profile:' + err);
+                }
+            }
+        );
+    },
+    setupPersistentMenu: () => {
+        let response = {
+            persistent_menu: [
+                {
+                    locale: 'default',
+                    composer_input_disabled: false,
+                    call_to_actions: [
+                        {
+                            type: TYPE.WEB_URL,
+                            title: '🏠 HOMEPAGE',
+                            url: URL.HOMEPAGE,
+                            webview_height_ratio: 'full',
+                        },
+                        {
+                            type: TYPE.POSTBACK,
+                            title: '🔥 REGISTER!',
+                            url: URL.REGISTER,
+                            webview_height_ratio: 'full',
+                        },
+                        {
+                            type: TYPE.POSTBACK,
+                            title: 'RESTARTED!',
+                            payload: POSTBACK.GET_STARTED,
+                        },
+                    ],
+                },
+            ],
+        };
+        // Send the HTTP request to the Messenger Platform
+        request(
+            {
+                uri: 'https://graph.facebook.com/v11.0/me/messenger_profile',
+                qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+                method: 'POST',
+                json: request_body,
+            },
+            (err, res, body) => {
+                if (!err) {
+                    console.log('setup persistent menu success!');
+                } else {
+                    console.error('Unable to setup persistent menu:' + err);
                 }
             }
         );

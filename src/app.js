@@ -11,15 +11,21 @@ app.get('/', (req, res) => {
     res.send('Hello Word!');
 });
 
-app.get('/remove', (req, res) => {
+app.get('/removeGetStarted', (req, res) => {
     // Remove profiler
     require('./api/messenger').removeProfile();
     res.send('Hello Word!');
 });
 
-app.get('/setup', (req, res) => {
+app.get('/setupGetStarted', (req, res) => {
     // Setup profile
     require('./api/messenger').setUpProfile();
+    res.send('Hello Word!');
+});
+
+app.get('/setupPersistentMenu', (req, res) => {
+    // Setup profile
+    require('./api/messenger').setupPersistentMenu();
     res.send('Hello Word!');
 });
 
