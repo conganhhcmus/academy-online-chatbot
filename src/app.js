@@ -6,6 +6,9 @@ const config = require('./config');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Remove profiler
+require('./api/messenger').removeProfile();
 // Setup profile
 require('./api/messenger').setUpProfile();
 

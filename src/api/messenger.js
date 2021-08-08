@@ -28,7 +28,29 @@ module.exports = {
             }
         );
     },
+    removeProfile: () => {
+        // Construct the message body
+        let request_body = {
+            fields: ['get_started'],
+        };
 
+        // Send the HTTP request to the Messenger Platform
+        request(
+            {
+                uri: 'https://graph.facebook.com/v11.0/me/messenger_profile',
+                qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+                method: 'DELETE',
+                json: request_body,
+            },
+            (err, res, body) => {
+                if (!err) {
+                    console.log('remove profile success!');
+                } else {
+                    console.error('Unable to remove profile:' + err);
+                }
+            }
+        );
+    },
     setUpProfile: () => {
         // Construct the message body
         let request_body = {
