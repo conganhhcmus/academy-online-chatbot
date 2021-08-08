@@ -28,6 +28,23 @@ module.exports = {
             }
         );
     },
+    getProfileById: async (sender_psid) => {
+        // Send the HTTP request to the Messenger Platform
+        await request(
+            {
+                uri: `https://graph.facebook.com/${sender_psid}?fields=name,gender,profile_pic&access_token=${process.env.PAGE_ACCESS_TOKEN}`,
+                method: 'GET',
+            },
+            (err, res, body) => {
+                if (!err) {
+                    console.log('get profile success!');
+                    return JSON.parse(body);
+                } else {
+                    console.error('Unable to get profile:' + err);
+                }
+            }
+        );
+    },
     removeProfile: () => {
         // Construct the message body
         let request_body = {
