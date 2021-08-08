@@ -138,6 +138,34 @@ module.exports = {
             (err, res, body) => {
                 if (!err) {
                     console.log('setup persistent menu success!');
+                    console.log(body);
+                } else {
+                    console.error('Unable to setup persistent menu:' + err);
+                }
+            }
+        );
+    },
+    removePersistentMenu: () => {
+        let request_body = {
+            persistent_menu: [
+                {
+                    locale: 'default',
+                    composer_input_disabled: false,
+                },
+            ],
+        };
+        // Send the HTTP request to the Messenger Platform
+        request(
+            {
+                uri: 'https://graph.facebook.com/v11.0/me/messenger_profile',
+                qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+                method: 'POST',
+                json: request_body,
+            },
+            (err, res, body) => {
+                if (!err) {
+                    console.log('setup persistent menu success!');
+                    console.log(body);
                 } else {
                     console.error('Unable to setup persistent menu:' + err);
                 }
