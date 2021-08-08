@@ -14,7 +14,7 @@ module.exports = {
         // Send the HTTP request to the Messenger Platform
         await request(
             {
-                uri: 'https://graph.facebook.com/v2.6/me/messages',
+                uri: URL.API_MESSENGER + '/me/messages',
                 qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
                 method: 'POST',
                 json: request_body,
@@ -58,7 +58,7 @@ module.exports = {
         // Send the HTTP request to the Messenger Platform
         request(
             {
-                uri: 'https://graph.facebook.com/v11.0/me/messenger_profile',
+                uri: URL.API_MESSENGER + '/me/messenger_profile',
                 qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
                 method: 'DELETE',
                 json: request_body,
@@ -78,15 +78,13 @@ module.exports = {
             get_started: {
                 payload: PAYLOAD.GET_STARTED,
             },
-            whitelisted_domains: [
-                'https://academy-online-chatbot.herokuapp.com/',
-            ],
+            whitelisted_domains: [URL.HOMEPAGE],
         };
 
         // Send the HTTP request to the Messenger Platform
         request(
             {
-                uri: 'https://graph.facebook.com/v11.0/me/messenger_profile',
+                uri: URL.API_MESSENGER + '/me/messenger_profile',
                 qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
                 method: 'POST',
                 json: request_body,
@@ -114,6 +112,16 @@ module.exports = {
                             webview_height_ratio: 'full',
                         },
                         {
+                            type: TYPE.POSTBACK,
+                            title: '📚 COURSES',
+                            payload: PAYLOAD.CATEGORIES,
+                        },
+                        {
+                            type: TYPE.POSTBACK,
+                            title: '🎁 PROMOTIONS',
+                            payload: PAYLOAD.PROMOTIONS,
+                        },
+                        {
                             type: TYPE.WEB_URL,
                             title: '🔥 REGISTER!',
                             url: URL.REGISTER,
@@ -121,7 +129,7 @@ module.exports = {
                         },
                         {
                             type: TYPE.POSTBACK,
-                            title: 'RESTARTED!',
+                            title: 'GET STARTED!',
                             payload: PAYLOAD.GET_STARTED,
                         },
                     ],
@@ -131,7 +139,7 @@ module.exports = {
         // Send the HTTP request to the Messenger Platform
         request(
             {
-                uri: 'https://graph.facebook.com/v11.0/me/messenger_profile',
+                uri: URL.API_MESSENGER + '/me/messenger_profile',
                 qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
                 method: 'POST',
                 json: request_body,
@@ -158,7 +166,7 @@ module.exports = {
         // Send the HTTP request to the Messenger Platform
         request(
             {
-                uri: 'https://graph.facebook.com/v11.0/me/messenger_profile',
+                uri: URL.API_MESSENGER + '/me/messenger_profile',
                 qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
                 method: 'POST',
                 json: request_body,
