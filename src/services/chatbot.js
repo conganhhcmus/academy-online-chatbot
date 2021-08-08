@@ -60,7 +60,7 @@ let ShowCategories = async (sender_psid) => {
         element.child.forEach((e) => {
             subtitle += '/' + e.name.toUpperCase();
         });
-        elements.add({
+        elements.push({
             title: element.name.toUpperCase(),
             subtitle: subtitle,
             image_url: URL.CATEGORY_IMG,
