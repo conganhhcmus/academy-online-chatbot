@@ -100,7 +100,7 @@ module.exports = {
         );
     },
     setupPersistentMenu: () => {
-        let response = {
+        let request_body = {
             persistent_menu: [
                 {
                     locale: 'default',
