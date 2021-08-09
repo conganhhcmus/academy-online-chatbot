@@ -2,6 +2,7 @@ const messengerAPI = require('./../api/messenger');
 const dialogflowAPI = require('./../api/dialogflow');
 const academyAPI = require('./../api/academy');
 const { PAYLOAD, TYPE, URL } = require('../settings');
+const convert = require('./../utils/convert');
 
 let GetStarted = async (sender_psid) => {
     let userProfile = await messengerAPI.getProfileById(sender_psid);
@@ -49,16 +50,19 @@ let GetStarted = async (sender_psid) => {
     await messengerAPI.callSendAPI(sender_psid, getStartedTemplate);
 };
 
-let ShowCourses = (sender_psid) => {};
+let ShowCourses = (sender_psid, categoryId) => {
+    console.log('ShowCourses');
+    console.log(sender_psid);
+    console.log(categoryId);
+};
 let ShowCategories = async (sender_psid) => {
     let data = await academyAPI.GetAllCategory();
-    console.log(data);
     let elements = [];
     data.forEach((element) => {
         let subtitle = element.name.toUpperCase();
 
         element.child.forEach((e) => {
-            subtitle += '/' + e.name.toUpperCase();
+            subtitle += '/n' + e.name.toUpperCase();
         });
         elements.push({
             title: element.name.toUpperCase(),
@@ -73,13 +77,48 @@ let ShowCategories = async (sender_psid) => {
                 },
                 {
                     type: TYPE.POSTBACK,
-                    title: 'ℹ️ DETAIL',
-                    payload: PAYLOAD.COURSES,
+                    title: 'ℹ️ VIEW DETAIL',
+                    payload: element._id,
                 },
                 {
                     type: TYPE.WEB_URL,
                     title: '🔥 REGISTER!',
                     url: URL.REGISTER,
+                    webview_height_ratio: 'full',
+                },
+            ],
+        });
+    });
+
+    let response = {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'generic',
+                elements: elements,
+            },
+        },
+    };
+
+    messengerAPI.callSendAPI(sender_psid, response);
+};
+let ShowPromotions = async (sender_psid) => {
+    let data = await academyAPI.GetAllPromotion();
+    data.forEach((element) => {
+        let subtitle = 'Discount: ' + element.discount * 100 + '%';
+        let start = convert.timeConverter(Date.parse(element.start));
+        let end = convert.timeConverter(Date.parse(element.end));
+        subtitle += '\n' + 'Start: ' + start + '\n' + 'End: ' + end;
+
+        elements.push({
+            title: element.title,
+            subtitle: subtitle,
+            image_url: URL.PROMOTION_IMG,
+            buttons: [
+                {
+                    type: TYPE.WEB_URL,
+                    title: '🔥 GET!',
+                    url: URL.PROMOTIONS,
                     webview_height_ratio: 'full',
                 },
             ],
@@ -151,26 +190,29 @@ module.exports = {
     },
 
     handlePostback: (sender_psid, received_postback) => {
+        let courses = [];
         // Get the payload for the postback
         let payload = received_postback.payload;
+        let index = courses.indexOf(payload);
+        if (index > -1) {
+            ShowCourses(sender_psid, courses[index]);
+        } else {
+            // Set the response based on the postback payload
+            switch (payload) {
+                case PAYLOAD.GET_STARTED:
+                    GetStarted(sender_psid);
+                    break;
+                case PAYLOAD.CATEGORIES:
+                    ShowCategories(sender_psid);
+                    break;
+                case PAYLOAD.PROMOTIONS:
+                    ShowPromotions(sender_psid);
+                    break;
 
-        // Set the response based on the postback payload
-        switch (payload) {
-            case PAYLOAD.GET_STARTED:
-                GetStarted(sender_psid);
-                break;
-            case PAYLOAD.CATEGORIES:
-                ShowCategories(sender_psid);
-                break;
-            case PAYLOAD.COURSES:
-                ShowCourses(sender_psid);
-                break;
-            case PAYLOAD.PROMOTIONS:
-                break;
-
-            default:
-                response = { text: 'Oops!' };
-                messengerAPI.callSendAPI(sender_psid, response);
+                default:
+                    response = { text: 'Oops!' };
+                    messengerAPI.callSendAPI(sender_psid, response);
+            }
         }
     },
 };

@@ -1,8 +1,8 @@
 const PAYLOAD = {
     GET_STARTED: 'GET_STARTED',
-    COURSES: 'COURSES',
     PROMOTIONS: 'PROMOTIONS',
     CATEGORIES: 'CATEGORIES',
+    // COURSES: 'COURSES',
 };
 
 const TYPE = {
@@ -18,6 +18,8 @@ const URL = {
     API_ACADEMY: 'https://wnc-online-academy-21.herokuapp.com',
     API_MESSENGER: 'https://graph.facebook.com/v11.0',
     CATEGORY_IMG: 'https://bit.ly/3Ak9DiH',
+    PROMOTION_IMG: 'https://bit.ly/3Aoxhuw',
+    PROMOTIONS: 'https://www.google.com/',
 };
 
 module.exports = { PAYLOAD, TYPE, URL };

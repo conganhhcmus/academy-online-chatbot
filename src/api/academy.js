@@ -41,19 +41,22 @@ module.exports = {
     },
 
     GetAllPromotion: () => {
-        request(
-            {
-                uri: URL.API_ACADEMY + '/promotions',
-                method: 'GET',
-            },
-            (err, res, body) => {
-                if (!err) {
-                    console.log('Success!');
-                    console.log(body);
-                } else {
-                    console.error('Oops! Error:' + err);
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    uri: URL.API_ACADEMY + '/promotions',
+                    method: 'GET',
+                },
+                (err, res, body) => {
+                    if (!err) {
+                        console.log('Success!');
+                        resolve(JSON.parse(body).promotions);
+                    } else {
+                        console.error('Oops! Error:' + err);
+                        reject();
+                    }
                 }
-            }
-        );
+            );
+        });
     },
 };
