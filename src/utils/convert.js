@@ -22,11 +22,11 @@ module.exports = {
         var min = a.getMinutes();
         var sec = a.getSeconds();
         var time =
-            hour.substr(-2) +
+            hour.toString().substr(-2) +
             ':' +
-            min.substr(-2) +
+            min.toString().substr(-2) +
             ':' +
-            sec.substr(-2) +
+            sec.toString().substr(-2) +
             date +
             ' ' +
             month +
