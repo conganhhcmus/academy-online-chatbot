@@ -107,8 +107,8 @@ let ShowPromotions = async (sender_psid) => {
     let elements = [];
     data.forEach((element) => {
         let subtitle = 'Discount: ' + element.discount * 100 + '%';
-        let start = convert.timeConverter(Date.parse(element.start));
-        let end = convert.timeConverter(Date.parse(element.end));
+        let start = convert.timeConverter(new Date(element.start));
+        let end = convert.timeConverter(new Date(element.end));
         subtitle += '\n' + 'Start: ' + start + '\n' + 'End: ' + end;
 
         elements.push({
