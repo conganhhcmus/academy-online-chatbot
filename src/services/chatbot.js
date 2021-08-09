@@ -244,6 +244,7 @@ module.exports = {
         // Get the payload for the postback
         let payload = received_postback.payload;
         let index = courses.indexOf(payload);
+        console.log(courses[index]);
         if (index > -1) {
             ShowCourses(sender_psid, courses[index]);
         } else {
