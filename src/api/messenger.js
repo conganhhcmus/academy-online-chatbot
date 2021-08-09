@@ -1,8 +1,61 @@
 const request = require('request');
 const { PAYLOAD, TYPE, URL } = require('../settings');
 
+let sendMarkReadMessage = (sender_psid) => {
+    let request_body = {
+        recipient: {
+            id: sender_psid,
+        },
+        sender_action: 'mark_seen',
+    };
+    request(
+        {
+            uri: URL.API_MESSENGER + '/me/messages',
+            qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+            method: 'POST',
+            json: request_body,
+        },
+        (err, res, body) => {
+            if (!err) {
+                console.log('message sent!');
+                console.log(body);
+            } else {
+                console.error('Unable to send message:' + err);
+            }
+        }
+    );
+};
+let sendTypingOn = (sender_psid) => {
+    let request_body = {
+        recipient: {
+            id: sender_psid,
+        },
+        sender_action: 'typing_on',
+    };
+    request(
+        {
+            uri: URL.API_MESSENGER + '/me/messages',
+            qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+            method: 'POST',
+            json: request_body,
+        },
+        (err, res, body) => {
+            if (!err) {
+                console.log('message sent!');
+                console.log(body);
+            } else {
+                console.error('Unable to send message:' + err);
+            }
+        }
+    );
+};
+
 module.exports = {
     callSendAPI: async (sender_psid, response) => {
+        // send mark & typing on
+        await sendMarkReadMessage(sender_psid);
+        await sendTypingOn(sender_psid);
+
         // Construct the message body
         let request_body = {
             recipient: {
