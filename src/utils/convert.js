@@ -1,6 +1,6 @@
 module.exports = {
     timeConverter: (UNIX_timestamp) => {
-        var a = new Date(UNIX_timestamp * 1000);
+        var a = UNIX_timestamp;
         var months = [
             'Jan',
             'Feb',
@@ -18,15 +18,16 @@ module.exports = {
         var year = a.getFullYear();
         var month = months[a.getMonth()];
         var date = a.getDate();
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        var sec = a.getSeconds();
+        var hour = '0' + a.getHours();
+        var min = '0' + a.getMinutes();
+        var sec = '0' + a.getSeconds();
         var time =
-            hour.toString().substr(-2) +
+            hour.substr(-2) +
             ':' +
-            min.toString().substr(-2) +
+            min.substr(-2) +
             ':' +
-            sec.toString().substr(-2) +
+            sec.substr(-2) +
+            ' ' +
             date +
             ' ' +
             month +
