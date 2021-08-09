@@ -50,10 +50,55 @@ let GetStarted = async (sender_psid) => {
     await messengerAPI.callSendAPI(sender_psid, getStartedTemplate);
 };
 
-let ShowCourses = (sender_psid, categoryId) => {
-    console.log('ShowCourses');
-    console.log(sender_psid);
-    console.log(categoryId);
+let ShowCourses = async (sender_psid, categoryId) => {
+    let data = academyAPI.GetAllCourse(categoryId);
+    let elements = [];
+
+    data.forEach((element) => {
+        elements.push({
+            title: element.title,
+            subtitle: element.shortDescription,
+            image_url: URL.API_ACADEMY + '/resources/image/' + element.avatar,
+            buttons: [
+                {
+                    type: TYPE.WEB_URL,
+                    title: 'ℹ️ VIEW DETAIL',
+                    url: URL.HOMEPAGE,
+                    webview_height_ratio: 'full',
+                },
+            ],
+        });
+    });
+
+    elements.push({
+        title: 'MENU',
+        subtitle: 'Please choose!',
+        image_url: URL.OPTIONS_IMG,
+        buttons: [
+            {
+                type: TYPE.POSTBACK,
+                title: '🔙 BACK TO COURSES',
+                payload: PAYLOAD.CATEGORIES,
+            },
+            {
+                type: TYPE.POSTBACK,
+                title: '🎁 GO TO PROMOTIONS',
+                payload: PAYLOAD.PROMOTIONS,
+            },
+        ],
+    });
+
+    let response = {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'generic',
+                elements: elements,
+            },
+        },
+    };
+
+    messengerAPI.callSendAPI(sender_psid, response);
 };
 let ShowCategories = async (sender_psid) => {
     let data = await academyAPI.GetAllCategory();
@@ -190,8 +235,12 @@ module.exports = {
         messengerAPI.callSendAPI(sender_psid, response);
     },
 
-    handlePostback: (sender_psid, received_postback) => {
+    handlePostback: async (sender_psid, received_postback) => {
         let courses = [];
+        let data = await academyAPI.GetAllCategory();
+        data.forEach((element) => {
+            courses.push(element._id);
+        });
         // Get the payload for the postback
         let payload = received_postback.payload;
         let index = courses.indexOf(payload);

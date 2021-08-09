@@ -20,6 +20,7 @@ const URL = {
     CATEGORY_IMG: 'https://bit.ly/3Ak9DiH',
     PROMOTION_IMG: 'https://bit.ly/3Aoxhuw',
     PROMOTIONS: 'https://www.google.com/',
+    OPTIONS_IMG: 'https://bit.ly/2XcLkF5',
 };
 
 module.exports = { PAYLOAD, TYPE, URL };

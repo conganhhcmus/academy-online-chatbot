@@ -2,22 +2,26 @@ const request = require('request');
 const { URL } = require('../settings');
 
 module.exports = {
-    GetAllCourse: (categoryId) => {
-        request(
-            {
-                uri: URL.API_ACADEMY + '/courses',
-                qs: { category: categoryId },
-                method: 'GET',
-            },
-            (err, res, body) => {
-                if (!err) {
-                    console.log('Success!');
-                    console.log(body);
-                } else {
-                    console.error('Oops! Error:' + err);
+    GetAllCourse: async (categoryId) => {
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    uri: URL.API_ACADEMY + '/courses',
+                    qs: { category: categoryId },
+                    method: 'GET',
+                },
+                (err, res, body) => {
+                    if (!err) {
+                        console.log('Success!');
+                        console.log(body.courses);
+                        resolve(body.courses);
+                    } else {
+                        console.error('Oops! Error:' + err);
+                        reject();
+                    }
                 }
-            }
-        );
+            );
+        });
     },
 
     GetAllCategory: () => {
