@@ -104,6 +104,7 @@ let ShowCategories = async (sender_psid) => {
 };
 let ShowPromotions = async (sender_psid) => {
     let data = await academyAPI.GetAllPromotion();
+    let elements = [];
     data.forEach((element) => {
         let subtitle = 'Discount: ' + element.discount * 100 + '%';
         let start = convert.timeConverter(Date.parse(element.start));
