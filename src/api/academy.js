@@ -13,7 +13,7 @@ module.exports = {
                 (err, res, body) => {
                     if (!err) {
                         console.log('Success!');
-                        console.log(body.courses);
+                        console.log(res);
                         resolve(body.courses);
                     } else {
                         console.error('Oops! Error:' + err);
