@@ -357,7 +357,7 @@ module.exports = {
         dataCategories.forEach((element) => {
             categories.push(element._id);
         });
-        let dataCourses = await academyAPI.GetAllCourse();
+        let dataCourses = await academyAPI.GetAllCourses();
         dataCourses.forEach((element) => {
             courses.push(element._id);
         });
