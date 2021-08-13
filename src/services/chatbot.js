@@ -385,6 +385,7 @@ module.exports = {
                     break;
                 case PAYLOAD.COURSES:
                     ShowAllCourses(sender_psid);
+                    break;
 
                 default:
                     response = { text: 'Oops!' };
