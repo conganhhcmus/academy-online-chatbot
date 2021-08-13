@@ -2,12 +2,70 @@ const request = require('request');
 const { URL } = require('../settings');
 
 module.exports = {
-    GetAllCourse: async (categoryId) => {
+    GetAllCourseByCategory: async (categoryId) => {
         return new Promise((resolve, reject) => {
             request(
                 {
                     uri: URL.API_ACADEMY + '/courses',
                     qs: { category: categoryId },
+                    method: 'GET',
+                },
+                (err, res, body) => {
+                    if (!err) {
+                        console.log('Success!');
+                        resolve(JSON.parse(body).courses);
+                    } else {
+                        console.error('Oops! Error:' + err);
+                        reject();
+                    }
+                }
+            );
+        });
+    },
+    GetCourseByName: async (name) => {
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    uri: URL.API_ACADEMY + '/courses',
+                    qs: { search: name },
+                    method: 'GET',
+                },
+                (err, res, body) => {
+                    if (!err) {
+                        console.log('Success!');
+                        resolve(JSON.parse(body).courses);
+                    } else {
+                        console.error('Oops! Error:' + err);
+                        reject();
+                    }
+                }
+            );
+        });
+    },
+    GetAllCourse: async () => {
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    uri: URL.API_ACADEMY + '/courses',
+                    method: 'GET',
+                },
+                (err, res, body) => {
+                    if (!err) {
+                        console.log('Success!');
+                        resolve(JSON.parse(body).courses);
+                    } else {
+                        console.error('Oops! Error:' + err);
+                        reject();
+                    }
+                }
+            );
+        });
+    },
+    GetCourseById: async (courseId) => {
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    uri: URL.API_ACADEMY + `/courses/${courseId}`,
                     method: 'GET',
                 },
                 (err, res, body) => {

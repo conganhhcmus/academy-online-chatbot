@@ -166,8 +166,13 @@ module.exports = {
                         },
                         {
                             type: TYPE.POSTBACK,
-                            title: '📚 COURSES',
+                            title: '📜 CATEGORIES',
                             payload: PAYLOAD.CATEGORIES,
+                        },
+                        {
+                            type: TYPE.POSTBACK,
+                            title: '📚 COURSES',
+                            payload: PAYLOAD.COURSES,
                         },
                         {
                             type: TYPE.POSTBACK,

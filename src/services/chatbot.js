@@ -9,6 +9,9 @@ let GetStarted = async (sender_psid) => {
     let response = {
         text: `Welcome ${userProfile.name} to Academy Online!`,
     };
+    let response_search = {
+        text: `You can find courses with form: "Search:<Name of Courses>"`,
+    };
 
     let getStartedTemplate = {
         attachment: {
@@ -30,7 +33,7 @@ let GetStarted = async (sender_psid) => {
                             },
                             {
                                 type: TYPE.POSTBACK,
-                                title: '📚 COURSES',
+                                title: '📜 CATEGORIES',
                                 payload: PAYLOAD.CATEGORIES,
                             },
                             {
@@ -48,10 +51,11 @@ let GetStarted = async (sender_psid) => {
     // Send the message to acknowledge the postback
     await messengerAPI.callSendAPI(sender_psid, response);
     await messengerAPI.callSendAPI(sender_psid, getStartedTemplate);
+    await messengerAPI.callSendAPI(sender_psid, response_search);
 };
 
 let ShowCourses = async (sender_psid, categoryId) => {
-    let data = await academyAPI.GetAllCourse(categoryId);
+    let data = await academyAPI.GetAllCourseByCategory(categoryId);
     let elements = [];
 
     data.forEach((element) => {
@@ -61,10 +65,9 @@ let ShowCourses = async (sender_psid, categoryId) => {
             image_url: URL.API_ACADEMY + '/resources/image/' + element.avatar,
             buttons: [
                 {
-                    type: TYPE.WEB_URL,
+                    type: TYPE.POSTBACK,
                     title: 'ℹ️ VIEW DETAIL',
-                    url: URL.HOMEPAGE,
-                    webview_height_ratio: 'full',
+                    postback: element._id,
                 },
             ],
         });
@@ -77,7 +80,7 @@ let ShowCourses = async (sender_psid, categoryId) => {
         buttons: [
             {
                 type: TYPE.POSTBACK,
-                title: '🔙 BACK TO COURSES',
+                title: '🔙 BACK TO CATEGORIES',
                 payload: PAYLOAD.CATEGORIES,
             },
             {
@@ -183,22 +186,133 @@ let ShowPromotions = async (sender_psid) => {
 
     messengerAPI.callSendAPI(sender_psid, response);
 };
+let ShowAllCourses = async (sender_psid) => {
+    let data = await academyAPI.GetAllCourses();
+    let elements = [];
 
+    data.forEach((element) => {
+        elements.push({
+            title: element.title,
+            subtitle: element.shortDescription,
+            image_url: URL.API_ACADEMY + '/resources/image/' + element.avatar,
+            buttons: [
+                {
+                    type: TYPE.POSTBACK,
+                    title: 'ℹ️ VIEW DETAIL',
+                    postback: element._id,
+                },
+            ],
+        });
+    });
+
+    elements.push({
+        title: 'MENU',
+        subtitle: 'Please choose!',
+        image_url: URL.OPTIONS_IMG,
+        buttons: [
+            {
+                type: TYPE.POSTBACK,
+                title: '🔙 BACK TO CATEGORIES',
+                payload: PAYLOAD.CATEGORIES,
+            },
+            {
+                type: TYPE.POSTBACK,
+                title: '🎁 GO TO PROMOTIONS',
+                payload: PAYLOAD.PROMOTIONS,
+            },
+        ],
+    });
+
+    let response = {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'generic',
+                elements: elements,
+            },
+        },
+    };
+
+    messengerAPI.callSendAPI(sender_psid, response);
+};
+let ShowDetailCourse = async (sender_psid, courseId) => {
+    let data = await academyAPI.GetCourseById(courseId);
+    let response = {
+        text: `Title: ${data.title}\n
+        Students: ${data.students.length} Members\n
+        Description: ${data.shortDescription}\n
+        Price: ${data.originPrice}\n
+        Promotion: ${data.promotion.title}\n`,
+    };
+    messengerAPI.callSendAPI(sender_psid, response);
+};
 module.exports = {
     handleMessage: async (sender_psid, received_message) => {
         let response;
 
         // Checks if the message contains text
         if (received_message.text) {
-            // Create the payload for a basic text message, which
-            // will be added to the body of our request to the Send API
-            let fullfilMessage = await dialogflowAPI.fullfilMessage(
-                received_message.text
-            );
+            let arr = received_message.text.split(':');
+            if (arr[0] == 'Search') {
+                let data = await academyAPI.GetCourseByName(arr[1]);
+                let elements = [];
 
-            response = {
-                text: fullfilMessage,
-            };
+                data.forEach((element) => {
+                    elements.push({
+                        title: element.title,
+                        subtitle: element.shortDescription,
+                        image_url:
+                            URL.API_ACADEMY +
+                            '/resources/image/' +
+                            element.avatar,
+                        buttons: [
+                            {
+                                type: TYPE.POSTBACK,
+                                title: 'ℹ️ VIEW DETAIL',
+                                postback: element._id,
+                            },
+                        ],
+                    });
+                });
+
+                elements.push({
+                    title: 'MENU',
+                    subtitle: 'Please choose!',
+                    image_url: URL.OPTIONS_IMG,
+                    buttons: [
+                        {
+                            type: TYPE.POSTBACK,
+                            title: '🔙 BACK TO CATEGORIES',
+                            payload: PAYLOAD.CATEGORIES,
+                        },
+                        {
+                            type: TYPE.POSTBACK,
+                            title: '🎁 GO TO PROMOTIONS',
+                            payload: PAYLOAD.PROMOTIONS,
+                        },
+                    ],
+                });
+
+                response = {
+                    attachment: {
+                        type: 'template',
+                        payload: {
+                            template_type: 'generic',
+                            elements: elements,
+                        },
+                    },
+                };
+            } else {
+                // Create the payload for a basic text message, which
+                // will be added to the body of our request to the Send API
+                let fullfilMessage = await dialogflowAPI.fullfilMessage(
+                    received_message.text
+                );
+
+                response = {
+                    text: fullfilMessage,
+                };
+            }
         } else if (received_message.attachments) {
             // Get the URL of the message attachment
             let attachment_url = received_message.attachments[0].payload.url;
@@ -236,17 +350,27 @@ module.exports = {
     },
 
     handlePostback: async (sender_psid, received_postback) => {
+        let categories = [];
         let courses = [];
-        let data = await academyAPI.GetAllCategory();
-        data.forEach((element) => {
+        let dataCategories = await academyAPI.GetAllCategory();
+        dataCategories.forEach((element) => {
+            categories.push(element._id);
+        });
+        let dataCourses = await academyAPI.GetAllCourse();
+        dataCourses.forEach((element) => {
             courses.push(element._id);
         });
         // Get the payload for the postback
         let payload = received_postback.payload;
-        let index = courses.indexOf(payload);
-        console.log(courses[index]);
-        if (index > -1) {
-            ShowCourses(sender_psid, courses[index]);
+        let indexCategory = categories.indexOf(payload);
+        let indexCourses = courses.indexOf(payload);
+        console.log(categories[indexCategory]);
+        console.log(courses[indexCourses]);
+
+        if (indexCategory > -1) {
+            ShowCourses(sender_psid, categories[indexCategory]);
+        } else if (indexCourses > -1) {
+            ShowDetailCourse(sender_psid, courses[indexCourses]);
         } else {
             // Set the response based on the postback payload
             switch (payload) {
@@ -259,6 +383,8 @@ module.exports = {
                 case PAYLOAD.PROMOTIONS:
                     ShowPromotions(sender_psid);
                     break;
+                case PAYLOAD.COURSES:
+                    ShowAllCourses(sender_psid);
 
                 default:
                     response = { text: 'Oops!' };
