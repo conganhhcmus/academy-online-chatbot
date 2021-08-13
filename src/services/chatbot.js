@@ -10,7 +10,7 @@ let GetStarted = async (sender_psid) => {
         text: `Welcome ${userProfile.name} to Academy Online!`,
     };
     let response_search = {
-        text: `You can find courses with form: "Search:<Name of Courses>"`,
+        text: `You can find courses with form: \n"Search:<Name of Courses>"`,
     };
 
     let getStartedTemplate = {
@@ -256,6 +256,7 @@ module.exports = {
             if (arr[0] == 'Search') {
                 let data = await academyAPI.GetCourseByName(arr[1]);
                 let elements = [];
+                console.log(data);
 
                 data.forEach((element) => {
                     elements.push({

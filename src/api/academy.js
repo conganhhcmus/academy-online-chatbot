@@ -42,7 +42,7 @@ module.exports = {
             );
         });
     },
-    GetAllCourse: async () => {
+    GetAllCourses: async () => {
         return new Promise((resolve, reject) => {
             request(
                 {
