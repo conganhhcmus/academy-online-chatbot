@@ -270,7 +270,7 @@ module.exports = {
                             {
                                 type: TYPE.POSTBACK,
                                 title: 'ℹ️ VIEW DETAIL',
-                                postback: element._id,
+                                payload: element._id,
                             },
                         ],
                     });
