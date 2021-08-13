@@ -71,7 +71,7 @@ module.exports = {
                 (err, res, body) => {
                     if (!err) {
                         console.log('Success!');
-                        resolve(JSON.parse(body).courses);
+                        resolve(JSON.parse(body).course);
                     } else {
                         console.error('Oops! Error:' + err);
                         reject();

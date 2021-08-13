@@ -125,7 +125,7 @@ let ShowCategories = async (sender_psid) => {
                 },
                 {
                     type: TYPE.POSTBACK,
-                    title: 'ℹ️ VIEW DETAIL',
+                    title: '📚 VIEW COURSES',
                     payload: element._id,
                 },
                 {
