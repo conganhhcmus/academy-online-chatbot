@@ -67,7 +67,7 @@ let ShowCourses = async (sender_psid, categoryId) => {
                 {
                     type: TYPE.POSTBACK,
                     title: 'ℹ️ VIEW DETAIL',
-                    postback: element._id,
+                    payload: element._id,
                 },
             ],
         });
@@ -199,7 +199,7 @@ let ShowAllCourses = async (sender_psid) => {
                 {
                     type: TYPE.POSTBACK,
                     title: 'ℹ️ VIEW DETAIL',
-                    postback: element._id,
+                    payload: element._id,
                 },
             ],
         });
