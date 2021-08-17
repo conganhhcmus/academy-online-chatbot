@@ -10,7 +10,7 @@ let GetStarted = async (sender_psid) => {
         text: `Welcome ${userProfile.name} to Academy Online!`,
     };
     let response_search = {
-        text: `You can find courses with form: \n"Search:<Name of Courses>"`,
+        text: `You can find courses with form: \n"Search:<CoursesName>"`,
     };
 
     let getStartedTemplate = {
@@ -110,7 +110,7 @@ let ShowCategories = async (sender_psid) => {
         let subtitle = element.name.toUpperCase();
 
         element.child.forEach((e) => {
-            subtitle += '/n' + e.name.toUpperCase();
+            subtitle += '\n' + e.name.toUpperCase();
         });
         elements.push({
             title: element.name.toUpperCase(),
