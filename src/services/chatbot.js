@@ -257,7 +257,7 @@ module.exports = {
                 let data = await academyAPI.GetCourseByName(arr[1]);
                 let elements = [];
                 console.log(data);
-
+                data = data.slice(0, data.length);
                 data.forEach((element) => {
                     elements.push({
                         title: element.title,
