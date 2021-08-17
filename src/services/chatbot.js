@@ -10,7 +10,7 @@ let GetStarted = async (sender_psid) => {
         text: `Welcome ${userProfile.name} to Academy Online!`,
     };
     let response_search = {
-        text: `You can find courses with form: \n"Search:<CoursesName>"`,
+        text: `You can find courses with form: \n"Search:<Name>"`,
     };
 
     let getStartedTemplate = {
