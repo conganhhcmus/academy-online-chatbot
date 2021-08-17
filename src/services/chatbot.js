@@ -49,9 +49,9 @@ let GetStarted = async (sender_psid) => {
     };
 
     // Send the message to acknowledge the postback
-    await messengerAPI.callSendAPI(sender_psid, response);
-    await messengerAPI.callSendAPI(sender_psid, getStartedTemplate);
-    await messengerAPI.callSendAPI(sender_psid, response_search);
+    messengerAPI.callSendAPI(sender_psid, response);
+    messengerAPI.callSendAPI(sender_psid, getStartedTemplate);
+    messengerAPI.callSendAPI(sender_psid, response_search);
 };
 
 let ShowCourses = async (sender_psid, categoryId) => {

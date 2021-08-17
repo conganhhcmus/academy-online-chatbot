@@ -65,7 +65,7 @@ module.exports = {
         };
 
         // Send the HTTP request to the Messenger Platform
-        await request(
+        request(
             {
                 uri: URL.API_MESSENGER + '/me/messages',
                 qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
