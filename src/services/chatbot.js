@@ -56,7 +56,7 @@ let GetStarted = async (sender_psid) => {
 
 let ShowCourses = async (sender_psid, categoryId) => {
     let data = await academyAPI.GetAllCourseByCategory(categoryId);
-    data = data.slice[(0, 9)];
+    data = data.slice(0, 9);
     let elements = [];
 
     data.forEach((element) => {
