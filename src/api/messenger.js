@@ -64,23 +64,27 @@ module.exports = {
             message: response,
         };
 
-        // Send the HTTP request to the Messenger Platform
-        request(
-            {
-                uri: URL.API_MESSENGER + '/me/messages',
-                qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-                method: 'POST',
-                json: request_body,
-            },
-            (err, res, body) => {
-                if (!err) {
-                    console.log('message sent!');
-                    console.log(body);
-                } else {
-                    console.error('Unable to send message:' + err);
+        return new Promise((resolve, reject) => {
+            // Send the HTTP request to the Messenger Platform
+            request(
+                {
+                    uri: URL.API_MESSENGER + '/me/messages',
+                    qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+                    method: 'POST',
+                    json: request_body,
+                },
+                (err, res, body) => {
+                    if (!err) {
+                        console.log('message sent!');
+                        console.log(body);
+                        resolve(body);
+                    } else {
+                        console.error('Unable to send message:' + err);
+                        reject();
+                    }
                 }
-            }
-        );
+            );
+        });
     },
     getProfileById: (sender_psid) => {
         // Send the HTTP request to the Messenger Platform
