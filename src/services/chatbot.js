@@ -243,7 +243,9 @@ let ShowDetailCourse = async (sender_psid, courseId) => {
             data.isComplete ? 'Hoàn thành' : 'Chưa hoàn thành'
         }\n\nStudents: ${data.students.length} Members\n\nDescription: ${
             data.shortDescription
-        }\n\nPrice: ${data.originPrice}$\n\nPromotion: ${data.promotion.title}\n`,
+        }\n\nPrice: ${data.originPrice}$\n\nPromotion: ${
+            data.promotion.title
+        }\n`,
     };
     messengerAPI.callSendAPI(sender_psid, response);
 };
