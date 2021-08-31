@@ -239,11 +239,11 @@ let ShowAllCourses = async (sender_psid) => {
 let ShowDetailCourse = async (sender_psid, courseId) => {
     let data = await academyAPI.GetCourseById(courseId);
     let response = {
-        text: `Title: ${data.title}\nRating: ${data.rating}\nStatus: ${
+        text: `Title: ${data.title}\n\nRating: ${data.rating}\n\nStatus: ${
             data.isComplete ? 'Hoàn thành' : 'Chưa hoàn thành'
-        }\nStudents: ${data.students.length} Members\nDescription: ${
+        }\n\nStudents: ${data.students.length} Members\n\nDescription: ${
             data.shortDescription
-        }\nPrice: ${data.originPrice}$\nPromotion: ${data.promotion.title}\n`,
+        }\n\nPrice: ${data.originPrice}$\n\nPromotion: ${data.promotion.title}\n`,
     };
     messengerAPI.callSendAPI(sender_psid, response);
 };
